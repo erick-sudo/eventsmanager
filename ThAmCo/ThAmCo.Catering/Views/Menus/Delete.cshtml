@@ -1,0 +1,25 @@
+﻿@model ThAmCo.Catering.Models.Menu
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Remove this menu</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MenuName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MenuName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MenuId" />
+        <input type="submit" value="Remove" class="btn btn-danger" /> |
+        <a asp-action="Index">Available Menus</a>
+    </form>
+</div>

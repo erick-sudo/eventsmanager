@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ThAmCo.Events.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>ThreeAmigos Corp Events</h1>
+
+<p>
+    <a asp-action="Create">Create New Event</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfEvent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventType)
+            </th>
+            <th>
+
+            </th>
+            <th>
+                
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfEvent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventType)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EventId">Cancel Event</a>
+            </td>
+            <td>
+                 <a asp-action="ViewStaff" asp-route-id="@item.EventId">View Staff</a>
+            </td>
+            <td>
+                 <a asp-action="ViewGuests" asp-route-id="@item.EventId">View Guests</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

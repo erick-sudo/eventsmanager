@@ -1,0 +1,65 @@
+/* _content/ThAmCo.Catering/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+html[b-qsbq9p55gb] {
+    background-color: antiquewhite;
+}
+
+a.navbar-brand[b-qsbq9p55gb] {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+a[b-qsbq9p55gb] {
+    color: #0077cc;
+    font-weight: bolder;
+}
+
+.btn-primary[b-qsbq9p55gb] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-qsbq9p55gb], .nav-pills .show > .nav-link[b-qsbq9p55gb] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.border-top[b-qsbq9p55gb] {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom[b-qsbq9p55gb] {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-qsbq9p55gb] {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-qsbq9p55gb] {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+.footer[b-qsbq9p55gb] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+#main[b-qsbq9p55gb] {
+    border: solid 1px black;
+    border-radius: 3px;
+    padding: 1.1em;
+    margin-bottom: 1.8em;
+}
+
+.container[b-qsbq9p55gb] {
+    padding-bottom: 1.3em;
+}

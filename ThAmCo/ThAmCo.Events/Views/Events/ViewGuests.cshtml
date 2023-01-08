@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "View";
+}
+
+<style>
+    .event-title{
+            color: rgb(2, 39, 7);
+            text-shadow: 0.04em 0.04em 0.01em rgba(36, 154, 184, 0.76);
+            font-size: 2em;
+            text-align: center;
+            font-family: cursive;
+        }
+        .contacts{
+            color: rgb(40, 7, 161);
+            font-weight: bolder;
+        }
+        em{
+            color: black;
+        }
+</style>
+
+<h1>Guests</h1>
+<h2 class="event-title">@ViewBag.Data.EventTitle</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Details
+            </th>
+            <th>
+                Attendance
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var guest in @ViewBag.Data.Guests) {
+        <tr>
+            <td>
+                @guest.TheGuest.GuestName
+            </td>
+            <td class="contacts">
+                @guest.TheGuest.PhoneNumber <em>|</em> @guest.TheGuest.Email
+            </td>
+            <td>
+                @guest.Attended
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

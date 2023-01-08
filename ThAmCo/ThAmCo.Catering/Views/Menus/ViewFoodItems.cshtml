@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ThAmCo.Catering.Models.FoodItem>
+
+@{
+    ViewData["Title"] = "ViewFoodItems";
+}
+
+<h1>FoodItems</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodItemId)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+            <td>
+                <a asp-controller="FoodItems" asp-action="Edit" asp-route-id="@item.FoodItemId">Edit</a> |
+                <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.FoodItemId">Details</a> |
+                <a asp-controller="FoodItems" asp-action="Delete" asp-route-id="@item.FoodItemId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

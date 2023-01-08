@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "View";
+}
+
+<style>
+    .event-title {
+        color: rgb(2, 39, 7);
+        text-shadow: 0.04em 0.04em 0.01em rgba(36, 154, 184, 0.76);
+        font-size: 2em;
+        text-align: center;
+        font-family: cursive;
+    }
+
+    .contacts {
+        color: rgb(40, 7, 161);
+        font-weight: bolder;
+    }
+
+    em {
+        color: black;
+    }
+</style>
+
+<h1>Assigned Staff</h1>
+<h2 class="event-title">@ViewBag.Data.EventTitle</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var staff in @ViewBag.Data.Staffs)
+        {
+            var parms = new Dictionary<string, string>
+            {
+                {"StaffId", @staff.TheStaff.StaffId},
+                {"EventId", @ViewBag.Data.EventId}
+            };
+            <tr>
+                <td>
+                    @staff.TheStaff.StaffName
+                </td>
+                <td class="contacts">
+                    @staff.TheStaff.PhoneNumber <em>|</em> @staff.TheStaff.Email
+                </td>
+                <td>
+                    <a asp-controller="Staffs" asp-action="UnassignStaff" asp-all-route-data="parms" >Unassign</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

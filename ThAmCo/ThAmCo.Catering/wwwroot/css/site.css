@@ -1,0 +1,55 @@
+html {
+    font-size: 14px;
+    background: rgb(164, 195, 88, 0.25);
+    background-size: cover;
+}
+
+html * {
+    background-color: inherit;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background: rgb(222, 232, 199, 0.94);
+}
+td{
+    font-weight:bolder;
+}
+a{
+    color: blue;
+    text-decoration: none;
+}
+a:hover{
+    color: burlywood;
+}
+
+#main {
+    padding: 5px;
+    box-shadow: 0.09em 0.09em 1em burlywood;
+    border-radius: 3px;
+    padding: 1.2em;
+    margin-bottom: 2em;
+}
+.container {
+    padding-bottom: 2em;
+}
+.footer {
+    background-color: burlywood;
+}
+header{
+    background-color: burlywood !important;
+}
+tr{
+    border: solid 1px burlywood;
+}

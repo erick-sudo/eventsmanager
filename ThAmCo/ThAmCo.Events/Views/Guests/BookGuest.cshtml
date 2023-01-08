@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+.guest-details *{
+            margin: 0;
+        }
+        .guest-details{
+            padding: 0.3em;
+            width: 60%;
+
+            margin: 0 auto;
+        }
+
+        .guest-details h4 span{
+            display: block;
+            width: 50%;
+            padding: 4px;
+        }
+        .guest-details h4 {
+            width: 100%;
+            display: flex;
+        }
+        .labels {
+            text-align: right;
+        }
+        .values{
+            color: maroon;
+        }
+        form {
+            width: 60%;
+            margin: 0 auto;
+            padding: 2em;
+        }
+
+        input[type="submit"] {
+            padding: 0.2em 1em;
+            margin: 0 auto;
+            display: block;
+            background-color: rgb(113, 113, 218);
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+<h3>Book Guest</h3>
+<div>
+    <hr />
+    <div class="guest-details">
+        <h4><span class="labels">ID :</span><span class="values">@ViewBag.Data.Guest.GuestId</span></h4>
+        <h4><span class="labels">Name :</span><span class="values">@ViewBag.Data.Guest.GuestName</span></h4>
+        <h4><span class="labels">Phone Number :</span><span class="values">@ViewBag.Data.Guest.PhoneNumber</span></h4>
+        <h4><span class="labels">Email Address :</span><span class="values">@ViewBag.Data.Guest.Email</span></h4>
+    </div>
+    <form action="/Guests/BookGuest" method="POST">
+        <h4>Select Event</h4>
+        <div class="form-group">
+            <input type="hidden" name="GuestId" value="@ViewBag.Data.Guest.GuestId" />
+            <select style="width: 50%; margin-bottom: 2em" name="EventId" class="form-control">
+                @foreach (var evt in @ViewBag.Data.AvailableEvents)
+                {
+                    <option value="@evt.EventId">
+                        @evt.Title
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Book" />
+        </div>
+    </form>
+</div>
