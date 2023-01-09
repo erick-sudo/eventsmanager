@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ThAmCo.Events.styles.css" asp-append-version="true" />
+
+    <style>
+        .style-dark {
+            color: blue;
+            font-weight: bolder;
+        }
+    </style>
 </head>
 <body>
     <header style="background-color: transparent;">
@@ -27,6 +34,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Staffs" asp-action="Index">Staff</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/api/availability">Venues</a>
                         </li>
                     </ul>
                 </div>

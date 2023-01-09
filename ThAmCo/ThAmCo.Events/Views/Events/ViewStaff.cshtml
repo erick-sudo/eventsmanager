@@ -33,16 +33,13 @@
             <th>
                 Details
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var staff in @ViewBag.Data.Staffs)
         {
-            var parms = new Dictionary<string, string>
-            {
-                {"StaffId", @staff.TheStaff.StaffId},
-                {"EventId", @ViewBag.Data.EventId}
-            };
+            var url = $"/Staffs/UnassignStaff/?StaffId={@staff.TheStaff.StaffId}&EventId={@ViewBag.Data.EventId}";
             <tr>
                 <td>
                     @staff.TheStaff.StaffName
@@ -51,7 +48,7 @@
                     @staff.TheStaff.PhoneNumber <em>|</em> @staff.TheStaff.Email
                 </td>
                 <td>
-                    <a asp-controller="Staffs" asp-action="UnassignStaff" asp-all-route-data="parms" >Unassign</a>
+                    <a href="@url" >Unassign</a>
                 </td>
             </tr>
         }

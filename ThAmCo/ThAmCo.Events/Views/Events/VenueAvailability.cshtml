@@ -1,0 +1,155 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    .availability {
+        padding-bottom: 2em;
+    }
+    #main{
+        padding: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    .availability-container{
+        padding: 0 !important;
+    }
+    .availability-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .availabilities {
+        color: black;
+        background-color: burlywood;
+        padding: 5px;
+        max-width: 300px;
+        min-width: 300px;
+        border-radius: 7px;
+        box-shadow: 0.04em 0.04em 0.4em;
+        margin: 20px 20px 0px 0px;
+    }
+
+    .labels {
+        text-align: right;
+        padding-right: 8px;
+        color: rgb(3, 30, 88);
+    }
+
+    .description {
+        padding: 5px;
+        text-align: center;
+        font-weight: bolder;
+        font-family: monospace;
+        font-size: 1.1em;
+    }
+
+    .vals {
+        padding-left: 8px;
+        color: rgba(0, 128, 0, 1);
+        text-shadow: 0.04em 0.04em 0.01em rgba(0, 0, 0, 1);
+    }
+
+    .labels, .vals {
+        display: block;
+        width: 50%;
+    }
+
+    h5 {
+        display: flex;
+        align-items: center;
+    }
+
+
+    form label {
+        font-size: 1.2em;
+        font-weight: bolder;
+    }
+
+    form {
+        margin: 1.5em auto;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: burlywood;
+        padding: 2em;
+        width: max-content;
+    }
+
+    input[type="date"], select {
+        min-width: 100px;
+        border: solid 1px;
+        padding: 0.5em;
+        border-radius: 5px;
+        margin-left: 5px;
+    }
+
+    input[type="submit"] {
+        border: none;
+        padding: 0.5em 2em;
+        font-weight: bolder;
+        background-color: rgb(88, 73, 53);
+        border-radius: 5px;
+        color: wheat;
+        margin-left: 5px;
+    }
+</style>
+        <form>
+            <label>Filter Venues</label>
+            <select name="eventtype">
+                <option value="CON">Conference</option>
+                <option value="MET">Meeting</option>
+                <option value="PTY">Party</option>
+                <option value="WED">Wedding</option>
+            </select>
+            <input type="date" name="beginDate" required>
+            <input type="date" name="endDate" required>
+
+            <input type="submit" value="Go">
+        </form>
+<div class="availability">
+        <h2>ThreeAmigos Corp Venues</h2>
+        <div class="availability-container">
+
+        </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchVenues('CON', '2022-11-01', '2022-11-30')
+
+        document.querySelector('form').addEventListener('submit', event => {
+            event.preventDefault()
+            const eventType = event.target.eventtype.value, beginDate = event.target.beginDate.value, endDate = event.target.endDate.value
+            fetchVenues(eventType, beginDate, endDate)
+        })
+    })
+
+    function fetchVenues(eventType, beginDate, endDate) {
+        fetch(`https://localhost:7088/api/Availability?eventType=${eventType}&beginDate=${beginDate}&endDate=${endDate}`)
+            .then(response => response.json())
+            .then(venues => {
+                const parentDiv = document.querySelector(".availability-container")
+                parentDiv.textContent = ""
+                venues.forEach(venue => {
+                    parentDiv.appendChild(createAvailabilitDiv(venue))
+                });
+            })
+    }
+
+    function createAvailabilitDiv(venue) {
+        let div = document.createElement("div")
+        div.innerHTML = `<h5><span class="labels">Code :</span><span class="vals">${venue.code}</span></h5>
+        <h5><span class="labels">Name :</span><span class="vals">${venue.name}</span></h5>
+        <p class="description">${venue.description}</p>
+        <h5><span class="labels">Capacity :</span><span class="vals">${venue.capacity}</span></h5>
+        <h5><span class="labels">Date :</span><span class="vals">${venue.date}</span></h4>
+        <h5><span class="labels">Hourly Cost :</span><span class="vals">${venue.costPerHour}</span></h5>`
+
+        div.classList.add("availabilities")
+
+        return div
+    }
+</script>

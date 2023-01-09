@@ -76,11 +76,11 @@ namespace ThAmCo.Events.Controllers
         //Unassign staff from a specific event
         [HttpGet]
         [Route("/[controller]/[action]")]
-        public async Task<IActionResult> UnassignStaff([Bind("GuestId, EventId")] GuestBooking guestbooking)
+        public async Task<IActionResult> UnassignStaff([Bind("StaffId, EventId")] Staffing staffing)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(guestbooking);
+                _context.Remove(staffing);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

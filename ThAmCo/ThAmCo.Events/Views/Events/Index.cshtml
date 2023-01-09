@@ -28,32 +28,42 @@
                 
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@for(var i=0;i<Model.Count();i++) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfEvent)
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).DateOfEvent)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EventType)
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).EventType)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EventId">Cancel Event</a>
+                    <a asp-action="Edit" asp-route-id="@Model.ElementAt(i).EventId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@Model.ElementAt(i).EventId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@Model.ElementAt(i).EventId">Cancel Event</a>
             </td>
             <td>
-                 <a asp-action="ViewStaff" asp-route-id="@item.EventId">View Staff</a>
+                    <a asp-action="ViewStaff" asp-route-id="@Model.ElementAt(i).EventId">View Staff</a>
             </td>
             <td>
-                 <a asp-action="ViewGuests" asp-route-id="@item.EventId">View Guests</a>
+                    <a asp-action="ViewGuests" asp-route-id="@Model.ElementAt(i).EventId">View Guests</a>
             </td>
-        </tr>
+            <td>
+                    @if (@ViewBag.Data.Warnings[i] == true)
+                    {
+                        <span style="color: red;">Not Enough Staff</span>
+                    } else
+                    {
+                        <span style="color: green;">✔</span>
+                    }
+                </td>
+            </tr>
 }
     </tbody>
 </table>

@@ -29,8 +29,39 @@ namespace ThAmCo.Events.Controllers
         [Route("/")]
         public async Task<IActionResult> Index()
         {
+
+            var @events = await _context.Events.ToListAsync();
+
+            var @warnings = new List<Boolean>();
+
+            events.ForEach(evt => {
+                var staffCount = _context.Staffing.Count(staff => staff.EventId== evt.EventId);
+                var guestCount = _context.GuestBookings.Count(guest => guest.EventId == evt.EventId);
+
+                if(staffCount < Math.Ceiling((double) guestCount / 10))
+                {
+                    warnings.Add(true);
+                } else
+                {
+                    warnings.Add(false);
+                }
+            });
+
+            dynamic eventsData = new ExpandoObject();
+            eventsData.Events = events;
+            eventsData.Warnings = warnings;
+
+            ViewBag.Data = eventsData;
+
             //Return the Index View
-              return View(await _context.Events.ToListAsync());
+            return View(@events);
+        }
+
+        [Route("/api/availability")]
+        public async Task<IActionResult> VenueAvailability()
+        {
+            //Return the available venues view
+            return View();
         }
 
         // GET: Events/Details/5
@@ -77,7 +108,7 @@ namespace ThAmCo.Events.Controllers
                 }
             });
 
-            if (@guests == null || @guests.Count < 1)
+            if (@guests == null)
             {
                 return NotFound();
             }
