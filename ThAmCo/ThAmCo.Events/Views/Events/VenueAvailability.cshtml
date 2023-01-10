@@ -96,7 +96,77 @@
         color: wheat;
         margin-left: 5px;
     }
+ .reserve{
+    background-color: rgba(92, 56, 10, 0.575);
+    color: white;
+    font-weight: bolder;
+    font-size: 1.3em;
+    padding: 5px;
+    border: solid 1px black;
+    display: block;
+    width: max-content;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+#reserve-event{
+    border: solid 1px black;
+    background-color: rgb(231, 166, 81);
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+}
+#events{
+    padding: 5px;
+        width: 70%;
+}
+.theevents {
+    margin-bottom: 10px;
+    border-bottom: solid 1px black;
+    padding: 0.5em;
+    font-family: monospace;
+}
+
+.theevents:hover{
+    background-color: cadetblue;
+}
+.btn{
+    border: solid 1px;
+    border-radius: 10px;
+    padding: 10px;
+    display: block;
+    cursor: pointer;
+    background-color: rgb(58, 34, 2);
+    color: white;
+}
+#rsv{
+    display: none;
+        position: fixed;
+        left: 20%;
+        right: 20%;
+        top: 5em;
+}
 </style>
+<div id="rsv">
+    <div id="reserve-event">
+    <h3>Choose Event to reserve for this Venue</h3>
+    <div id="events">
+        @foreach(var evt in ViewBag.Data.Events)
+        {
+            <section>
+                    <div class="theevents">
+                        <h4>@evt.EventId</h4>
+                        <h4>@evt.Title</h4>
+                        <h5>@evt.DateOfEvent</h5>
+                    </div>
+            </section>
+        }
+    </div>
+    <button class="btn">Reserve</button>
+</div>
+</div>
         <form>
             <label>Filter Venues</label>
             <select name="eventtype">
@@ -117,6 +187,9 @@
         </div>
 </div>
 <script>
+    let venueCode = ""
+    let eventId = 0
+    let rsvDiv
     document.addEventListener('DOMContentLoaded', () => {
         fetchVenues('CON', '2022-11-01', '2022-11-30')
 
@@ -124,6 +197,36 @@
             event.preventDefault()
             const eventType = event.target.eventtype.value, beginDate = event.target.beginDate.value, endDate = event.target.endDate.value
             fetchVenues(eventType, beginDate, endDate)
+        })
+
+        document.querySelectorAll(".theevents").forEach(evt => {
+            evt.addEventListener('click', event => {
+                const divEvent = event.target.closest("section").firstElementChild
+                divEvent.style.backgroundColor = "cadetblue"
+                Array.from(divEvent.parentElement.parentElement.children).forEach(section => {
+                    if (section.firstElementChild !== divEvent) {
+                        section.firstElementChild.style.backgroundColor = "transparent"
+                    }
+                })
+                eventId = divEvent.firstElementChild.textContent
+            })
+        })
+
+        rsvDiv = document.querySelector("#rsv");
+
+        document.querySelector(".btn").addEventListener('click', event => {
+            
+            rsvDiv.style.display = "none"
+
+            const url = `${window.location.origin}/ReserveVenue?EventId=${eventId}&VenueId=${venueCode}`
+
+           fetch(url)
+           .then(response => {
+               console.log(response)
+           })
+           .catch(error => {
+               console.log(error)
+           })
         })
     })
 
@@ -136,12 +239,22 @@
                 venues.forEach(venue => {
                     parentDiv.appendChild(createAvailabilitDiv(venue))
                 });
+
+                document.querySelectorAll(".reserve").forEach(res => {
+                    res.addEventListener('click', event => {
+                        venueCode = event.target.nextElementSibling.nextElementSibling.lastElementChild.textContent
+                        
+                        rsvDiv.style.display = "block"
+                    });
+                })
             })
     }
 
     function createAvailabilitDiv(venue) {
         let div = document.createElement("div")
-        div.innerHTML = `<h5><span class="labels">Code :</span><span class="vals">${venue.code}</span></h5>
+        div.innerHTML = 
+        `<h5 class="reserve">Reserve<h5>
+        <h5><span class="labels">Code :</span><span class="vals">${venue.code}</span></h5>
         <h5><span class="labels">Name :</span><span class="vals">${venue.name}</span></h5>
         <p class="description">${venue.description}</p>
         <h5><span class="labels">Capacity :</span><span class="vals">${venue.capacity}</span></h5>

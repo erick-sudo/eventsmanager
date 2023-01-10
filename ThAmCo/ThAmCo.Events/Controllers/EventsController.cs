@@ -25,6 +25,26 @@ namespace ThAmCo.Events.Controllers
             _context.Database.EnsureCreated();
         }
 
+        [HttpGet]
+        [Route("/ReserveVenue")]
+        public async Task<IActionResult> Reserve()
+        {
+            string EventId = HttpContext.Request.Query["EventId"], VenueId = HttpContext.Request.Query["VenueId"];
+            int id = Int32.Parse(EventId);
+
+            Event evt = _context.Events.FindAsync(id).Result;
+
+            if (evt != null)
+            {
+                evt.VenueId = VenueId;
+                _context.Update(evt);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(VenueAvailability));
+        }
+
         // GET: Events
         [Route("/")]
         public async Task<IActionResult> Index()
@@ -60,6 +80,11 @@ namespace ThAmCo.Events.Controllers
         [Route("/api/availability")]
         public async Task<IActionResult> VenueAvailability()
         {
+            var events = await _context.Events.ToListAsync();
+
+            dynamic eventsData = new ExpandoObject();
+            eventsData.Events = events;
+            ViewBag.Data = eventsData;
             //Return the available venues view
             return View();
         }
